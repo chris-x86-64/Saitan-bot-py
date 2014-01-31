@@ -1,21 +1,21 @@
-import sys
 import yaml
-from optparse import OptionParser
+import sys
 
-parser = OptionParser()
-parser.add_option("-c", "--config", action = "store", dest = "config_file", help = "config file in yaml format.")
-(options, args) = parser.parse_args()
+class Config():
+	def __init__(self, path):
+		self.path = path
+		try:
+			self.stream = open(self.path, 'r')
+		except TypeError, e:
+			print e
+			print "Please specify the path to config file (--config CONFIG_FILE)"
+			sys.exit(1)
+		except IOError, e:
+			print e
+			print "Specified config file not found!"
+			sys.exit(1)
 
-try:
-	stream = open(options.config_file, 'r')
-except TypeError, e:
-	print e
-	print "Please specify the path to config file (--config CONFIG_FILE)"
-	sys.exit(1)
-except IOError, e:
-	print e
-	print "Specified config file not found!"
-	sys.exit(1)
+		self.config = yaml.load(self.stream)
 
-config = yaml.load(stream)
-print config
+	def OAuthKeys(self):
+		return self.config['oauth']
