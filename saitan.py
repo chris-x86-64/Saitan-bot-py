@@ -24,8 +24,9 @@ if options.test_mode == False:
 else:
 	print "[DEBUG] Testing mode initiated."
 	try:
-		from saitan.brain import talk
-		interface = talk.Talk(oauth)
+		from tweepy import API
+		from saitan.brain.talk import Talk
+		interface = Talk(API(auth_handler=oauth))
 		interface.post(u"さいたんbot is initiating self test...", None)
 		sys.exit(0)
 	except:

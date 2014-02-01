@@ -1,5 +1,8 @@
+# -*- coding: utf-8 -*-
+
 import tweepy
-from saitan.brain import fav, talk
+from saitan.brain.talk import Talk
+from saitan.brain.fav import Fav
 
 class StreamListener(tweepy.StreamListener):
 	def __init__(self, config, oauth):
@@ -7,7 +10,7 @@ class StreamListener(tweepy.StreamListener):
 		self.api = tweepy.API(auth_handler = oauth)
 		self.config = config
 		self.me = self.api.me()
-		self.talk_interface = talk.Talk(oauth)
+		self.talk_interface = Talk(self.api)
 		self.fav_interface = None
 
 	def on_connect(self):
