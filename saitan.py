@@ -26,7 +26,10 @@ if options.test_mode == False:
 		sys.exit(0)
 else:
 	print "[DEBUG] Testing mode initiated."
-	from saitan.brain import talk
-	interface = talk.Talk(oauth)
-	interface.post(u"さいたんbot is initiating self test...", None)
-	sys.exit(0)
+	try:
+		from saitan.brain import talk
+		interface = talk.Talk(oauth)
+		interface.post(u"さいたんbot is initiating self test...", None)
+		sys.exit(0)
+	except:
+		raise
