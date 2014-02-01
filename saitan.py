@@ -3,8 +3,7 @@
 from optparse import OptionParser
 from saitan.config_loader import Config
 from saitan.oauth_handler import SaitanOAuthHandler
-from saitan.listener import StreamListener
-from tweepy import Stream, API
+from saitan.listener import Stream
 import sys
 
 parser = OptionParser()
@@ -13,12 +12,10 @@ parser.add_option("-t", "--test-mode", action = "store_true", dest = "test_mode"
 (options, args) = parser.parse_args()
 
 config = Config(options.config_file)
-
 oauth = SaitanOAuthHandler(config).authenticate()
 
 if options.test_mode == False:
-	listener = StreamListener(config, oauth)
-	streamer = Stream(auth = oauth, listener = listener)
+	streamer = Stream(config, oauth)
 	try:
 		streamer.userstream()
 	except KeyboardInterrupt:

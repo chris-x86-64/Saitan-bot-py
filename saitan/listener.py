@@ -35,3 +35,8 @@ class StreamListener(tweepy.StreamListener):
 	def on_error(self, code):
 		print code
 		return False
+
+class Stream(tweepy.Stream):
+	def __init__(self, config, oauth):
+		listener = StreamListener(config, oauth)
+		super(Stream, self).__init__(auth = oauth, listener = listener)
