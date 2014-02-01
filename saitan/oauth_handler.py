@@ -9,5 +9,5 @@ class SaitanOAuthHandler():
 				)
 		self.oauth.set_access_token(keys['access_token_key'], keys['access_token_secret'])
 
-	def getOAuth(self):
+	def authenticate(self):
 		return self.oauth

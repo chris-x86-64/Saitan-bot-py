@@ -11,7 +11,7 @@ parser.add_option("-c", "--config", action = "store", dest = "config_file", help
 
 config = Config(options.config_file)
 
-oauth = SaitanOAuthHandler(config).getOAuth()
+oauth = SaitanOAuthHandler(config).authenticate()
 listener = StreamListener(config)
 streamer = Stream(auth = oauth, listener = listener)
 try:
