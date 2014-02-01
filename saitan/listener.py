@@ -1,9 +1,14 @@
 import tweepy
+from saitan.brain import fav, talk
 
 class StreamListener(tweepy.StreamListener):
-	def __init__(self, config):
+	def __init__(self, config, oauth):
 		super(StreamListener, self).__init__()
+		self.api = tweepy.API(auth_handler = oauth)
 		self.config = config
+		self.me = self.api.me()
+		self.talk_interface = talk.Talk(oauth)
+		self.fav_interface = None
 
 	def on_connect(self):
 		print "[INFO] Starting saitan-bot."
