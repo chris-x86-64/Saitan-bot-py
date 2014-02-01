@@ -1,6 +1,10 @@
-from tweepy import StreamListener
+import tweepy
 
-class StreamListener(StreamListener):
+class StreamListener(tweepy.StreamListener):
+	def __init__(self, config):
+		super(StreamListener, self).__init__()
+		self.config = config
+
 	def on_connect(self):
 		print "[INFO] Starting saitan-bot."
 

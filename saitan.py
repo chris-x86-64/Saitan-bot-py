@@ -16,6 +16,6 @@ oauth = OAuthHandler(keys['consumer_key'],
 		)
 oauth.set_access_token(keys['access_token_key'], keys['access_token_secret'])
 
-listener = StreamListener()
+listener = StreamListener(config)
 streamer = Stream(auth = oauth, listener = listener)
 streamer.userstream()
