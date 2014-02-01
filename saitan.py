@@ -1,7 +1,8 @@
 from optparse import OptionParser
 from saitan.config_loader import Config
+from saitan.oauth_handler import SaitanOAuthHandler
 from saitan.listener import StreamListener
-from tweepy import OAuthHandler, Stream
+from tweepy import Stream
 import sys
 
 parser = OptionParser()
@@ -10,13 +11,7 @@ parser.add_option("-c", "--config", action = "store", dest = "config_file", help
 
 config = Config(options.config_file)
 
-keys = config.OAuthKeys()
-oauth = OAuthHandler(keys['consumer_key'],
-		keys['consumer_secret'],
-		secure = True
-		)
-oauth.set_access_token(keys['access_token_key'], keys['access_token_secret'])
-
+oauth = SaitanOAuthHandler(config).getOAuth()
 listener = StreamListener(config)
 streamer = Stream(auth = oauth, listener = listener)
 try:
